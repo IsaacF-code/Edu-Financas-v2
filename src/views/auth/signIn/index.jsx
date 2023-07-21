@@ -1,26 +1,3 @@
-/* eslint-disable */
-/*!
-  _   _  ___  ____  ___ ________  _   _   _   _ ___   
- | | | |/ _ \|  _ \|_ _|__  / _ \| \ | | | | | |_ _| 
- | |_| | | | | |_) || |  / / | | |  \| | | | | || | 
- |  _  | |_| |  _ < | | / /| |_| | |\  | | |_| || |
- |_| |_|\___/|_| \_\___/____\___/|_| \_|  \___/|___|
-                                                                                                                                                                                                                                                                                                                                       
-=========================================================
-* Horizon UI - v1.1.0
-=========================================================
-
-* Product Page: https://www.horizon-ui.com/
-* Copyright 2022 Horizon UI (https://www.horizon-ui.com/)
-
-* Designed and Coded by Simmmple
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
 import React from "react";
 import { NavLink } from "react-router-dom";
 // Chakra imports
@@ -83,7 +60,7 @@ function SignIn() {
         flexDirection='column'>
         <Box me='auto'>
           <Heading color={textColor} fontSize='36px' mb='10px'>
-            Sign In
+            Faça login
           </Heading>
           <Text
             mb='36px'
@@ -91,7 +68,7 @@ function SignIn() {
             color={textColorSecondary}
             fontWeight='400'
             fontSize='md'>
-            Enter your email and password to sign in!
+            Digite seu e-mail e senha para entrar!
           </Text>
         </Box>
         <Flex
@@ -118,12 +95,12 @@ function SignIn() {
             _active={googleActive}
             _focus={googleActive}>
             <Icon as={FcGoogle} w='20px' h='20px' me='10px' />
-            Sign in with Google
+            Faça login com o Google
           </Button>
           <Flex align='center' mb='25px'>
             <HSeparator />
             <Text color='gray.400' mx='14px'>
-              or
+              ou
             </Text>
             <HSeparator />
           </Flex>
@@ -135,7 +112,7 @@ function SignIn() {
               fontWeight='500'
               color={textColor}
               mb='8px'>
-              Email<Text color={brandStars}>*</Text>
+              E-mail<Text color={brandStars}>*</Text>
             </FormLabel>
             <Input
               isRequired={true}
@@ -154,13 +131,13 @@ function SignIn() {
               fontWeight='500'
               color={textColor}
               display='flex'>
-              Password<Text color={brandStars}>*</Text>
+              Senha<Text color={brandStars}>*</Text>
             </FormLabel>
             <InputGroup size='md'>
               <Input
                 isRequired={true}
                 fontSize='sm'
-                placeholder='Min. 8 characters'
+                placeholder='Min. 8 caracteres'
                 mb='24px'
                 size='lg'
                 type={show ? "text" : "password"}
@@ -170,7 +147,7 @@ function SignIn() {
                 <Icon
                   color={textColorSecondary}
                   _hover={{ cursor: "pointer" }}
-                  as={show ? RiEyeCloseLine : MdOutlineRemoveRedEye}
+                  as={show ? MdOutlineRemoveRedEye : RiEyeCloseLine }
                   onClick={handleClick}
                 />
               </InputRightElement>
@@ -188,7 +165,7 @@ function SignIn() {
                   fontWeight='normal'
                   color={textColor}
                   fontSize='sm'>
-                  Keep me logged in
+                  Me mantenha conectado
                 </FormLabel>
               </FormControl>
               <NavLink to='/auth/forgot-password'>
@@ -197,7 +174,7 @@ function SignIn() {
                   fontSize='sm'
                   w='124px'
                   fontWeight='500'>
-                  Forgot password?
+                  Esqueceu a senha?
                 </Text>
               </NavLink>
             </Flex>
@@ -208,7 +185,7 @@ function SignIn() {
               w='100%'
               h='50'
               mb='24px'>
-              Sign In
+              Login
             </Button>
           </FormControl>
           <Flex
@@ -218,14 +195,14 @@ function SignIn() {
             maxW='100%'
             mt='0px'>
             <Text color={textColorDetails} fontWeight='400' fontSize='14px'>
-              Not registered yet?
+              Ainda não registrado?
               <NavLink to='/auth/sign-up'>
                 <Text
                   color={textColorBrand}
                   as='span'
                   ms='5px'
                   fontWeight='500'>
-                  Create an Account
+                  Crie uma conta
                 </Text>
               </NavLink>
             </Text>
