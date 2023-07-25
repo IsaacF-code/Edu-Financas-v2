@@ -26,6 +26,8 @@ import { MdNotificationsNone } from 'react-icons/md';
 import { FaEthereum } from 'react-icons/fa';
 import routes from 'routes.js';
 import { ThemeEditor } from './ThemeEditor';
+import { ColorModeToggle } from '@hypertheme-editor/chakra-ui';
+import { VSeparator } from 'components/separator/Separator';
 export default function HeaderLinks(props) {
 	const { secondary } = props;
 	// Chakra Color Mode
@@ -52,7 +54,9 @@ export default function HeaderLinks(props) {
 			p="10px"
 			borderRadius="30px"
 			boxShadow={shadow}>
-			<SearchBar mb={secondary ? { base: '10px', md: 'unset' } : 'unset'} me="10px" borderRadius="30px" />
+			
+			{/* Só aparece na página NFT, ao lado do botão de notificações */}
+			{/* <SearchBar mb={secondary ? { base: '10px', md: 'unset' } : 'unset'} me="10px" borderRadius="30px" />
 			<Flex
 				bg={ethBg}
 				display={secondary ? 'flex' : 'none'}
@@ -71,8 +75,11 @@ export default function HeaderLinks(props) {
 						ETH
 					</Text>
 				</Text>
-			</Flex>
+			</Flex> */}
+
 			<SidebarResponsive routes={routes} />
+			
+			{/* Menu no navbar para as notificações */}
 			<Menu>
 				<MenuButton p="0px">
 					<Icon mt="6px" as={MdNotificationsNone} color={navbarIcon} w="18px" h="18px" me="10px" />
@@ -150,8 +157,13 @@ export default function HeaderLinks(props) {
 			</Menu> */}
 			{/* ------------------------------ */}
 
-			<ThemeEditor navbarIcon={navbarIcon} />
+			
+			{/* Botão de modo claro/escuro */}
+			<ColorModeToggle showLabel />
+			{/* Separador */}
+			<VSeparator mr="10px" /> 
 
+			{/* Menu no navbar para o avatar/Perfil */}
 			<Menu>
 				<MenuButton p="0px">
 					<Avatar
