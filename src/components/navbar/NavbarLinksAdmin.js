@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react';
 // Custom Components
 import { ItemContent } from 'components/menu/ItemContent';
-import { SearchBar } from 'components/navbar/searchBar/SearchBar';
+// import { SearchBar } from 'components/navbar/searchBar/SearchBar'; //Não está sendo usado 
 import { SidebarResponsive } from 'components/sidebar/Sidebar';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -23,9 +23,9 @@ import React from 'react';
 // import navImage from 'assets/img/layout/Navbar.png';
 import { MdNotificationsNone } from 'react-icons/md';
 // import { MdInfoOutline } from 'react-icons/md';
-import { FaEthereum } from 'react-icons/fa';
+// import { FaEthereum } from 'react-icons/fa'; //Não está sendo usado
 import routes from 'routes.js';
-import { ThemeEditor } from './ThemeEditor';
+// import { ThemeEditor } from './ThemeEditor'; //Não está sendo usado
 import { ColorModeToggle } from '@hypertheme-editor/chakra-ui';
 import { VSeparator } from 'components/separator/Separator';
 export default function HeaderLinks(props) {
@@ -35,10 +35,10 @@ export default function HeaderLinks(props) {
 	let menuBg = useColorModeValue('white', 'navy.800');
 	const textColor = useColorModeValue('secondaryGray.900', 'white');
 	const textColorBrand = useColorModeValue('brand.700', 'brand.400');
-	const ethColor = useColorModeValue('gray.700', 'white');
+	// const ethColor = useColorModeValue('gray.700', 'white');  //Não está sendo usado
 	const borderColor = useColorModeValue('#E6ECFA', 'rgba(135, 140, 189, 0.3)');
-	const ethBg = useColorModeValue('secondaryGray.300', 'navy.900');
-	const ethBox = useColorModeValue('white', 'navy.800');
+	// const ethBg = useColorModeValue('secondaryGray.300', 'navy.900'); //Não está sendo usado
+	// const ethBox = useColorModeValue('white', 'navy.800'); //Não está sendo usado
 	const shadow = useColorModeValue(
 		'14px 17px 40px 4px rgba(112, 144, 176, 0.18)',
 		'14px 17px 40px 4px rgba(112, 144, 176, 0.06)'
