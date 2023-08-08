@@ -6,14 +6,14 @@ import {
   MdPerson,
   MdHome,
   MdLock,
-  MdOutlineShoppingCart,
+  // MdOutlineShoppingCart,
 } from "react-icons/md";
 
 import { TbTargetArrow, TbCategory } from "react-icons/tb";
 
 // Admin Imports
 import MainDashboard from "views/admin/default";
-import NFTMarketplace from "views/admin/marketplace";
+// import NFTMarketplace from "views/admin/marketplace";
 import Profile from "views/admin/profile";
 import DataTables from "views/admin/dataTables";
 import Categories from "views/admin/categories"
@@ -51,21 +51,21 @@ const routes = [
     path: "/goals",
     component: Goals,
   },
-  {
-    name: "NFT Marketplace",
-    layout: "/admin",
-    path: "/nft-marketplace",
-    icon: (
-      <Icon
-        as={MdOutlineShoppingCart}
-        width='20px'
-        height='20px'
-        color='inherit'
-      />
-    ),
-    component: NFTMarketplace,
-    secondary: true,
-  },
+  // {
+  //   name: "NFT Marketplace",
+  //   layout: "/admin",
+  //   path: "/nft-marketplace",
+  //   icon: (
+  //     <Icon
+  //       as={MdOutlineShoppingCart}
+  //       width='20px'
+  //       height='20px'
+  //       color='inherit'
+  //     />
+  //   ),
+  //   component: NFTMarketplace,
+  //   secondary: true,
+  // },
   {
     name: "Perfil",
     layout: "/admin",

@@ -1,7 +1,9 @@
 /* eslint-disable */
 import {
+  Box,
     Flex,
-    Progress,
+    IconButton,
+    Spacer,
     Table,
     Tbody,
     Td,
@@ -13,7 +15,7 @@ import {
   } from "@chakra-ui/react";
   // Custom components
   import Card from "components/card/Card";
-  import Menu from "components/menu/MainMenu";
+  import { AddIcon, EditIcon, DeleteIcon } from "@chakra-ui/icons"
   import React, { useMemo } from "react";
   import {
     useGlobalFilter,
@@ -50,13 +52,36 @@ import {
   
     const textColor = useColorModeValue("secondaryGray.900", "white");
     const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
+    const iconColor = useColorModeValue("secondaryGray.800", "white");
+    
     return (
+      <>
+      <Card
+        direction='column'
+        w='100%'
+        px='0px'
+        overflowX={{ sm: "scroll", lg: "hidden" }}
+        mb='10px'
+      >
+        <Flex px='25px' justify='space-between' mb='20px' align='center'>
+          <Box>
+            (Categorias Receita/Depesa)
+          </Box>
+          <Spacer />
+          <Box>
+            <IconButton 
+              size='lg'
+              icon={<AddIcon color={iconColor}/>}
+            />
+          </Box>
+        </Flex>
+      </Card>
       <Card
         direction='column'
         w='100%'
         px='0px'
         overflowX={{ sm: "scroll", lg: "hidden" }}>
-        <Flex px='25px' justify='space-between' mb='20px' align='center'>
+        {/* <Flex px='25px' justify='space-between' mb='20px' align='center'>
           <Text
             color={textColor}
             fontSize='22px'
@@ -64,8 +89,7 @@ import {
             lineHeight='100%'>
             Categorias
           </Text>
-          <Menu />
-        </Flex>
+        </Flex> */}
         <Table {...getTableProps()} variant='simple' color='gray.500' mb='24px'>
           <Thead>
             {headerGroups.map((headerGroup, index) => (
@@ -103,10 +127,20 @@ import {
                       );
                     } else if (cell.column.Header === "AÇÕES") {
                       data = (
-                        <Text color={textColor} fontSize='sm' fontWeight='700'>
-                          {cell.value}
-                        </Text>
-                      );
+                        <Flex align='center'>
+                          <IconButton 
+                            size='lg'
+                            icon={<EditIcon color={iconColor} />}
+                            mr='10px'
+                            // onClick={() => console.log("Teste")}
+                          />
+                          <IconButton
+                            size='lg' 
+                            icon={<DeleteIcon  color={iconColor}/>}
+                            // onClick={() => console.log("Teste")}
+                          />
+                        </Flex>
+                      )
                     }
                     return (
                       <Td
@@ -125,6 +159,7 @@ import {
           </Tbody>
         </Table>
       </Card>
+      </>
     );
   }
   

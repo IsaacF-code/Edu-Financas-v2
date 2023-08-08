@@ -1,14 +1,11 @@
 [
     {
-        "name": "Salário",
-        "actions": ""
+        "name": "Salário"
     },
     {
-        "name": "Investimento",
-        "actions": ""
+        "name": "Investimento"
     },
     {
-        "name": "Prêmio",
-        "actions": ""
+        "name": "Prêmio"
     }
 ]

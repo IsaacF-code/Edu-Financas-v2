@@ -3,11 +3,11 @@ import { Box, Grid } from "@chakra-ui/react";
 
 // Custom components
 import Banner from "views/admin/profile/components/Banner";
-import General from "views/admin/profile/components/General";
-import Notifications from "views/admin/profile/components/Notifications";
-import Projects from "views/admin/profile/components/Projects";
-import Storage from "views/admin/profile/components/Storage";
-import Upload from "views/admin/profile/components/Upload";
+// import General from "views/admin/profile/components/General";
+// import Notifications from "views/admin/profile/components/Notifications";
+// import Projects from "views/admin/profile/components/Projects";
+// import Storage from "views/admin/profile/components/Storage";
+// import Upload from "views/admin/profile/components/Upload";
 
 // Assets
 import banner from "assets/img/auth/banner.png";
@@ -38,7 +38,7 @@ export default function Overview() {
           followers='9.7k'
           following='274'
         />
-        <Storage
+        {/* <Storage
           gridArea={{ base: "2 / 1 / 3 / 2", lg: "1 / 2 / 2 / 3" }}
           used={25.6}
           total={50}
@@ -51,9 +51,9 @@ export default function Overview() {
           minH={{ base: "auto", lg: "420px", "2xl": "365px" }}
           pe='20px'
           pb={{ base: "100px", lg: "20px" }}
-        />
+        /> */}
       </Grid>
-      <Grid id
+      {/* <Grid id
         mb='20px'
         templateColumns={{
           base: "1fr",
@@ -90,7 +90,7 @@ export default function Overview() {
             "2xl": "1 / 3 / 2 / 4",
           }}
         />
-      </Grid>
+      </Grid> */}
     </Box>
   );
 }
