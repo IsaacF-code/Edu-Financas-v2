@@ -53,7 +53,7 @@ function FormModal({ title, showModal, closeModal, options }) {
               </FormControl>
             </ModalBody>
             <ModalFooter>
-              <Button colorScheme="brand" mr={3}>
+              <Button colorScheme="brand" mr={3} color="white">
                 Salvar
               </Button>
               <Button onClick={closeModal}>Cancelar</Button>

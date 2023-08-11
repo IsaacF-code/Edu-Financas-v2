@@ -1,6 +1,7 @@
 /* eslint-disable */
 import {
   Box,
+    Button,
     Flex,
     IconButton,
     Spacer,
@@ -23,6 +24,7 @@ import {
     useSortBy,
     useTable,
   } from "react-table";
+import DropDown from "components/dropDown/DropDown";
   
   export default function CategoriesTable(props) {
     const { columnsData, tableData } = props;
@@ -65,7 +67,12 @@ import {
       >
         <Flex px='25px' justify='space-between' mb='20px' align='center'>
           <Box>
-            (Categorias Receita/Depesa)
+            <Button color="green">
+              Categoria de Receitas
+            </Button>
+            <Button color="red">
+              Categoria de Despesas
+            </Button>
           </Box>
           <Spacer />
           <Box>

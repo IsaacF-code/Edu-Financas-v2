@@ -29,6 +29,7 @@ function AuthIllustration(props) {
         ps={{ xl: "70px" }}
         justifyContent='start'
         direction='column'>
+        {/* Parte do Back to Simmmple */}
         <NavLink
           to='/admin'
           style={() => ({
@@ -52,6 +53,7 @@ function AuthIllustration(props) {
             </Text>
           </Flex>
         </NavLink>
+        {/* Fim da parte do Back to Simmmple */}
         {children}
         <Box
           display={{ base: "none", md: "block" }}

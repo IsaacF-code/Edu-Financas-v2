@@ -28,6 +28,7 @@ import routes from 'routes.js';
 // import { ThemeEditor } from './ThemeEditor'; //Não está sendo usado
 import { ColorModeToggle } from '@hypertheme-editor/chakra-ui';
 import { VSeparator } from 'components/separator/Separator';
+import { NavLink } from 'react-router-dom/cjs/react-router-dom';
 export default function HeaderLinks(props) {
 	const { secondary } = props;
 	// Chakra Color Mode
@@ -205,7 +206,9 @@ export default function HeaderLinks(props) {
 							borderRadius="8px"
 							px="14px"
 							>
-							<Text fontSize="sm">Log out</Text>
+							<NavLink to="/auth">
+								<Text fontSize="sm">Log out</Text>
+							</NavLink>
 						</MenuItem>
 					</Flex>
 				</MenuList>
