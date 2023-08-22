@@ -1,11 +1,10 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 // Chakra imports
 import {
   Box,
   Button,
   Flex,
-  FormControl,
   FormLabel,
   Heading,
   Icon,
@@ -29,6 +28,59 @@ function SignUp() {
   const brandStars = useColorModeValue("brand.500", "brand.400");
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useHistory();
+
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:5000/user", {
+        method: "POST", 
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password
+        }),
+      });
+      
+      const data = await response.json();
+      alert(data.message);
+      
+      setName("");
+      setEmail("");
+      setPassword("");
+      
+    } catch (error) {
+      console.error("error", error); 
+    }
+
+    navigate.push("/auth/sign-in");
+
+  };
+
+  // Bloco para refatorar o código acima
+  // ----------------------------------------
+  // const [formValue, setFormValue] = useState({
+    //     name: '',
+    //     email: '',
+    //     password: ''
+    // });
+  // ----------------------------------------
+  // ----------------------------------------
+    // const handleOnChange = (e) => {
+  //     const { name, value } = e.target;
+  //     setFormValue({ ...formValue, [name]: value });
+  // };
+  // ----------------------------------------
+
+
   return (
     <DefaultAuth illustrationBackground={illustration} image={illustration}>
       <Flex
@@ -66,7 +118,7 @@ function SignUp() {
           mx={{ base: "auto", lg: "unset" }}
           me='auto'
           mb={{ base: "20px", md: "auto" }}>
-          <FormControl>
+          <form onSubmit={handleOnSubmit}>
             <FormLabel
               display='flex'
               ms='4px'
@@ -78,6 +130,8 @@ function SignUp() {
             </FormLabel>
             <Input 
               isRequired={true}
+              id="name"
+              onChange={(e) => setName(e.target.value)}
               variant='auth'
               fontSize='sm'
               ms={{ base: "0px", md: "0px" }}
@@ -98,6 +152,8 @@ function SignUp() {
             </FormLabel>
             <Input
               isRequired={true}
+              id="email"
+              onChange={(e) => setEmail(e.target.value)}
               variant='auth'
               fontSize='sm'
               ms={{ base: "0px", md: "0px" }}
@@ -118,6 +174,8 @@ function SignUp() {
             <InputGroup size='md'>
               <Input
                 isRequired={true}
+                id="password"
+                onChange={(e) => setPassword(e.target.value)}
                 fontSize='sm'
                 placeholder='Min. 8 caracteres'
                 mb='24px'
@@ -134,18 +192,17 @@ function SignUp() {
                 />
               </InputRightElement>
             </InputGroup>
-            <NavLink to="/admin">
             <Button
               fontSize='sm'
               variant='brand'
               fontWeight='500'
               w='100%'
               h='50'
-              mb='24px'>
+              mb='24px'
+              type="submit">
               Cadastrar
             </Button>
-            </NavLink>
-          </FormControl>
+            </form>
         </Flex>
       </Flex>
     </DefaultAuth>

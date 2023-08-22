@@ -116,6 +116,7 @@ function SignIn() {
             </FormLabel>
             <Input
               isRequired={true}
+              id="email"
               variant='auth'
               fontSize='sm'
               ms={{ base: "0px", md: "0px" }}
@@ -136,6 +137,7 @@ function SignIn() {
             <InputGroup size='md'>
               <Input
                 isRequired={true}
+                id="password"
                 fontSize='sm'
                 placeholder='Min. 8 caracteres'
                 mb='24px'
