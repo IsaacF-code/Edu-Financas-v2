@@ -15,7 +15,7 @@ import {
     useColorModeValue
 } from "@chakra-ui/react"
 
-function FormModal({ title, showModal, closeModal, options }) {
+function FormModalCategory({ title, showModal, closeModal, options, clickSave }) {
     const initialRef = React.useRef()
     const finalRef = React.useRef()
     const selectColor = useColorModeValue("", "white"); // cor padrão no modo claro e branca no modo escuro
@@ -34,16 +34,12 @@ function FormModal({ title, showModal, closeModal, options }) {
             <ModalCloseButton />
             <ModalBody pb={6}>
               <FormControl>
-                <FormLabel>Descrição</FormLabel>
-                <Input ref={initialRef} placeholder="Descrição" color={selectColor} />
+                <FormLabel>Categoria</FormLabel>
+                <Input ref={initialRef} placeholder="Digite uma nova categoria" color={selectColor} />
               </FormControl>
               <FormControl mt={4}>
-                <FormLabel>Valor</FormLabel>
-                <Input color={selectColor}/>
-              </FormControl>
-              <FormControl mt={4}> 
-                <FormLabel>Categoria</FormLabel>
-                <Select placeholder="Selecione a categoria" color={selectColor}>
+                <FormLabel>Tipo</FormLabel>
+                <Select placeholder="Selecione o tipo de categoria" color={selectColor}>
                     {options?.map(option => (
                         <option key={option.id}>
                             {option.name}
@@ -53,7 +49,7 @@ function FormModal({ title, showModal, closeModal, options }) {
               </FormControl>
             </ModalBody>
             <ModalFooter>
-              <Button colorScheme="brand" mr={3} color="white">
+              <Button colorScheme="brand" mr={3} color="white" onClick={clickSave}>
                 Salvar
               </Button>
               <Button onClick={closeModal}>Cancelar</Button>
@@ -64,4 +60,4 @@ function FormModal({ title, showModal, closeModal, options }) {
     )
 }
 
-export default FormModal;
+export default FormModalCategory;

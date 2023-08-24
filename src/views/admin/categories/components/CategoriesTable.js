@@ -13,18 +13,19 @@ import {
     Thead,
     Tr,
     useColorModeValue,
+    useDisclosure,
   } from "@chakra-ui/react";
   // Custom components
   import Card from "components/card/Card";
   import { AddIcon, EditIcon, DeleteIcon } from "@chakra-ui/icons"
-  import React, { useMemo } from "react";
+  import React, { useMemo, useState } from "react";
   import {
     useGlobalFilter,
     usePagination,
     useSortBy,
     useTable,
   } from "react-table";
-import DropDown from "components/dropDown/DropDown";
+import FormModalCategory from "components/modal/FormModalCategory";
   
   export default function CategoriesTable(props) {
     const { columnsData, tableData } = props;
@@ -55,7 +56,42 @@ import DropDown from "components/dropDown/DropDown";
     const textColor = useColorModeValue("secondaryGray.900", "white");
     const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
     const iconColor = useColorModeValue("secondaryGray.800", "white");
+
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const handleOpen = () => {
+      onOpen();
+    }
     
+    // State para pegar tipo de categoria (Receita ou Despesa)
+    // const [categoryType, setCategoryType] = useState([]);
+    
+    // State para salvar Categoria 
+    const [category, setCategory] = useState("");
+
+    const handleSave = async (e) => {
+      e.preventDefault();
+
+      try {
+        const response = await fetch("http://localhost:5000/categoriaReceita", {
+          method: "POST", 
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            category
+          }),
+        });
+
+        const data = await response.json();
+        alert(data.message);
+
+        setCategory("");
+      } catch (error) {
+        console.error("error", error);
+      }
+    };
+
     return (
       <>
       <Card
@@ -79,6 +115,14 @@ import DropDown from "components/dropDown/DropDown";
             <IconButton 
               size='lg'
               icon={<AddIcon color={iconColor}/>}
+              onClick={handleOpen}
+            />
+            <FormModalCategory 
+              title="Nova Categoria"
+              // options={["Receita", "Despesa"]}
+              clickSave={handleSave}
+              showModal={isOpen}
+              closeModal={onClose}
             />
           </Box>
         </Flex>
@@ -88,15 +132,6 @@ import DropDown from "components/dropDown/DropDown";
         w='100%'
         px='0px'
         overflowX={{ sm: "scroll", lg: "hidden" }}>
-        {/* <Flex px='25px' justify='space-between' mb='20px' align='center'>
-          <Text
-            color={textColor}
-            fontSize='22px'
-            fontWeight='700'
-            lineHeight='100%'>
-            Categorias
-          </Text>
-        </Flex> */}
         <Table {...getTableProps()} variant='simple' color='gray.500' mb='24px'>
           <Thead>
             {headerGroups.map((headerGroup, index) => (

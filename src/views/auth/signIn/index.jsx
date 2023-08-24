@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 // Chakra imports
 import {
   Box,
@@ -44,6 +45,56 @@ function SignIn() {
   );
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useHistory();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    console.log("Prevent")
+
+    try {
+      const response = await fetch("http://localhost:5000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      console.log("antes do if")
+
+      if(response.ok){
+        const data = await response.json();
+        const token = data.token;
+
+        localStorage.setItem("token", token);
+        alert(data.message);
+        
+        console.log("if true")
+        
+        navigate.push("/admin")
+      } else {
+        const data = await response.json();
+        alert(data.message);
+      
+        console.log("if false")
+      }
+
+      console.log("depois do if")
+
+    } catch (error) {
+      console.log("error", error);
+
+      console.log("catch")
+
+    }
+  }
+
   return (
     <DefaultAuth illustrationBackground={illustration} image={illustration}>
       <Flex
@@ -104,7 +155,7 @@ function SignIn() {
             </Text>
             <HSeparator />
           </Flex>
-          <FormControl>
+          <form>
             <FormLabel
               display='flex'
               ms='4px'
@@ -117,6 +168,7 @@ function SignIn() {
             <Input
               isRequired={true}
               id="email"
+              onChange={e => setEmail(e.target.value)}
               variant='auth'
               fontSize='sm'
               ms={{ base: "0px", md: "0px" }}
@@ -138,6 +190,7 @@ function SignIn() {
               <Input
                 isRequired={true}
                 id="password"
+                onChange={e => setPassword(e.target.value)}
                 fontSize='sm'
                 placeholder='Min. 8 caracteres'
                 mb='24px'
@@ -186,10 +239,11 @@ function SignIn() {
               fontWeight='500'
               w='100%'
               h='50'
-              mb='24px'>
+              mb='24px'
+              onClick={handleLogin}>
               Login
             </Button>
-          </FormControl>
+            </form>
           <Flex
             flexDirection='column'
             justifyContent='center'
