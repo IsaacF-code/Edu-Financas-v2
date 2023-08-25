@@ -103,7 +103,7 @@ import FormModalCategory from "components/modal/FormModalCategory";
       >
         <Flex px='25px' justify='space-between' mb='20px' align='center'>
           <Box>
-            <Button color="green">
+            <Button color="green.400">
               Categoria de Receitas
             </Button>
             <Button color="red">

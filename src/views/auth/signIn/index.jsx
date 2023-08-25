@@ -52,7 +52,6 @@ function SignIn() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("Prevent")
 
     try {
       const response = await fetch("http://localhost:5000/login", {
@@ -66,8 +65,6 @@ function SignIn() {
         }),
       });
 
-      console.log("antes do if")
-
       if(response.ok){
         const data = await response.json();
         const token = data.token;
@@ -75,23 +72,14 @@ function SignIn() {
         localStorage.setItem("token", token);
         alert(data.message);
         
-        console.log("if true")
-        
         navigate.push("/admin")
       } else {
         const data = await response.json();
         alert(data.message);
-      
-        console.log("if false")
       }
-
-      console.log("depois do if")
 
     } catch (error) {
       console.log("error", error);
-
-      console.log("catch")
-
     }
   }
 
