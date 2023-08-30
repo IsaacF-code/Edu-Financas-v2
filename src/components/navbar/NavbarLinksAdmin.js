@@ -13,6 +13,7 @@ import {
 import { SidebarResponsive } from 'components/sidebar/Sidebar';
 import PropTypes from 'prop-types';
 import React from 'react';
+import jwtDecode from 'jwt-decode';
 // Assets
 import routes from 'routes.js';
 import { ColorModeToggle } from '@hypertheme-editor/chakra-ui';
@@ -34,18 +35,21 @@ export default function HeaderLinks(props) {
 	const token = localStorage.getItem("token");
 	if (!token) {
 		alert("Você não está logado!");
-		navigate.push("/auth");
+		navigate.push("/auth/sign-in");
 	} 
 
+	const tokenObject = jwtDecode(token);
+	const userEmail = tokenObject.email;
+
 	// console.log("token: ", token)
-	// console.log("name token: ", token.name)
-	// console.log("id token: ", token.id)
-	// console.log("email token: ", token.email)
+	// console.log("name token: ", tokenObject.name)
+	// console.log("id token: ", tokenObject.id)
+	// console.log("email token: ", tokenObject.email)
 	
 	const handleLogout = () => {
 		localStorage.removeItem("token");
 		alert("Logout efetuado com sucesso!");
-		navigate.push("/auth");
+		navigate.push("/auth/sign-in");
 	}
 
 	return (
@@ -72,7 +76,7 @@ export default function HeaderLinks(props) {
 					<Avatar
 						_hover={{ cursor: 'pointer' }}
 						color="white"
-						name="Adela Parkson"
+						name={userEmail}
 						bg="#11047A"
 						size="sm"
 						w="40px"
@@ -91,7 +95,7 @@ export default function HeaderLinks(props) {
 							fontSize="sm"
 							fontWeight="700"
 							color={textColor}>
-							👋&nbsp; Hey, {token.name} {/* Ainda não está pegando o nome do usuário */}
+							👋&nbsp; Hey, {userEmail} {/* Ainda não está pegando o nome do usuário */}
 						</Text>
 					</Flex>
 					<Flex flexDirection="column" p="10px">

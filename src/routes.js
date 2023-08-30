@@ -3,21 +3,17 @@ import React from "react";
 import { Icon } from "@chakra-ui/react";
 import {
   MdBarChart,
-  MdPerson,
   MdHome,
   MdLock,
-  // MdOutlineShoppingCart,
 } from "react-icons/md";
 
-import { TbTargetArrow, TbCategory } from "react-icons/tb";
+import { TbCategory } from "react-icons/tb";
 
 // Admin Imports
 import MainDashboard from "views/admin/default";
-// import NFTMarketplace from "views/admin/marketplace";
-import Profile from "views/admin/profile";
 import DataTables from "views/admin/dataTables";
-import Categories from "views/admin/categories"
-import Goals from "views/admin/goals"
+import Categories from "views/admin/categories";
+import CategoriesNew from "views/admin/categoriesNovo";
 
 // Auth Imports
 import SignInCentered from "views/auth/signIn";
@@ -46,33 +42,11 @@ const routes = [
     component: Categories,
   },
   {
-    name: "Metas",
+    name: "Categorias (Novo)",
     layout: "/admin",
-    icon: <Icon as={TbTargetArrow} width='20px' height='20px' color='inheit' />,
-    path: "/goals",
-    component: Goals,
-  },
-  // {
-  //   name: "NFT Marketplace",
-  //   layout: "/admin",
-  //   path: "/nft-marketplace",
-  //   icon: (
-  //     <Icon
-  //       as={MdOutlineShoppingCart}
-  //       width='20px'
-  //       height='20px'
-  //       color='inherit'
-  //     />
-  //   ),
-  //   component: NFTMarketplace,
-  //   secondary: true,
-  // },
-  {
-    name: "Perfil",
-    layout: "/admin",
-    path: "/profile",
-    icon: <Icon as={MdPerson} width='20px' height='20px' color='inherit' />,
-    component: Profile,
+    icon: <Icon as={TbCategory} width='20px' height='20px' color='inheit' />,
+    path: "/categoriesNew",
+    component: CategoriesNew,
   },
   {
     name: "Sign In",
