@@ -39,12 +39,7 @@ export default function HeaderLinks(props) {
 	} 
 
 	const tokenObject = jwtDecode(token);
-	const userEmail = tokenObject.email;
-
-	// console.log("token: ", token)
-	// console.log("name token: ", tokenObject.name)
-	// console.log("id token: ", tokenObject.id)
-	// console.log("email token: ", tokenObject.email)
+	const userName = tokenObject.name;
 	
 	const handleLogout = () => {
 		localStorage.removeItem("token");
@@ -76,7 +71,7 @@ export default function HeaderLinks(props) {
 					<Avatar
 						_hover={{ cursor: 'pointer' }}
 						color="white"
-						name={userEmail}
+						name={userName}
 						bg="#11047A"
 						size="sm"
 						w="40px"
@@ -95,7 +90,7 @@ export default function HeaderLinks(props) {
 							fontSize="sm"
 							fontWeight="700"
 							color={textColor}>
-							👋&nbsp; Hey, {userEmail} {/* Ainda não está pegando o nome do usuário */}
+							👋&nbsp; Hey, {userName}!
 						</Text>
 					</Flex>
 					<Flex flexDirection="column" p="10px">

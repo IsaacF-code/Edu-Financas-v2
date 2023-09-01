@@ -15,10 +15,12 @@ import {
     useColorModeValue
 } from "@chakra-ui/react"
 
-function FormModalCategory({ title, showModal, closeModal, options, clickSave }) {
+function FormModalCategory({ title, showModal, closeModal, options, clickSave, handleInputChange, value }) {
     const initialRef = React.useRef()
     const finalRef = React.useRef()
     const selectColor = useColorModeValue("", "white"); // cor padrão no modo claro e branca no modo escuro
+
+    const { nome } = value || {nome: ''};
 
     return (
         <>
@@ -35,7 +37,14 @@ function FormModalCategory({ title, showModal, closeModal, options, clickSave })
             <ModalBody pb={6}>
               <FormControl>
                 <FormLabel>Categoria</FormLabel>
-                <Input ref={initialRef} placeholder="Digite uma nova categoria" color={selectColor} />
+                <Input 
+                  ref={initialRef} 
+                  placeholder="Digite uma nova categoria" 
+                  color={selectColor} 
+                  name="name" 
+                  value={nome} 
+                  onChange={e => handleInputChange({ ...value, nome: e.target.value })} 
+                />
               </FormControl>
               <FormControl mt={4}>
                 <FormLabel>Tipo</FormLabel>
