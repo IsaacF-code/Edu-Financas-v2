@@ -16,6 +16,8 @@ import {
  } from "@chakra-ui/react";
 import Card from "components/card/Card";
 import FormModalCategory from "components/modal/FormModalCategory";
+import FormModalEditCategory from "components/modal/FormModalEditCategory";
+import FormModalConfirm from "components/modal/FormModalConfirm";
 import ItemTableCategory from "components/table/ItemTableCategory";
 import React, { useEffect, useState } from "react";
 
@@ -49,13 +51,15 @@ export default function CategoriesTable({ categories }) {
       })
       .then((res) => res.json())
       .then((data) => {
-        setCategorys(data);
+        setCategorys(data.categorias);
       })
       .catch((error) => {
         console.error('error', error);
       })
     }, [token]);
 
+    // -------------------------- Save Category --------------------------
+    
     // State para salvar Categoria 
     const [category, setCategory] = useState({ nome: "" });
     const [toClick, setToClick] = useState(false);
@@ -72,37 +76,31 @@ export default function CategoriesTable({ categories }) {
           body: JSON.stringify(category),
         })
           .then((res) => res.json())
-          .then((data) => {
-            console.log("useEffect: ", category)
-            
-            alert(data.message);
+          .then((data) => {  
+            alert("Categoria salva com sucesso!");
             setCategory("");
             setToClick(false);
-            console.log("useEffect --: ", category)
           })
           .catch((error) => {
             console.error("error", error);
           });
+          onClose();
       }
-    }, [toClick, category, token]);  // Adicionando o state toClick para que a função seja executada quando o state for alterado
+    }, [toClick, category, token, onClose]);  // Adicionando o state toClick para que a função seja executada quando o state for alterado
 
    const handleSave = (e) => { // Função para salvar categoria
       e.preventDefault();
-      
-      console.log("Antes do if: ", category)
 
       let inputWithFilds = category.nome.length > 0; // Verificando se o input foi preenchido
       if(inputWithFilds){ // Se o input foi preenchido, ele cria um novo objeto com os dados do input e salva no state category
         let newCategory = {
           nome: category.nome
-        };
-        console.log("dentro do if: ", category)
+        }
         setCategory(newCategory); // Salvando no state category
         setToClick(true);
       } else {
         alert("Preencha todos os campos!");
       }
-      console.log("Depois do if: ", category)
     }
 
     // const handleSave = async (e) => {
@@ -128,6 +126,94 @@ export default function CategoriesTable({ categories }) {
     //     console.error("error", error);
     //   }
     // };
+    console.log()
+    // -------------------------- Save Category --------------------------
+
+    // -------------------------- Edit Category --------------------------
+
+    const [categoryEdit, setCategoryEdit] = useState( null );
+    const [showModalEdit, setShowModalEdit] = useState(false);
+
+    const handleCategoryEdit = (category) => {
+      if(category._id){
+        setCategoryEdit((prevState) => ({ ...prevState, ...category }));
+        setShowModalEdit(true);
+      } else {
+        console.error("O objeto category não possui o id");
+      }
+    }
+
+    const handleEdit = () => {
+      if(categoryEdit === null) {
+        console.error("O objeto categoryEdit não possui o id");
+        return;
+      }
+      fetch(`http://localhost:5000/categoria/${categoryEdit._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(categoryEdit),
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        const getIdList = categorys.map(item => {
+          // console.log("Antes do if: ", item._id, categoryEdit._id)
+          if(item._id === categoryEdit._id){
+            // console.log("Dentro do if: ", item._id, item.id, categoryEdit._id, categoryEdit.id)
+            return categoryEdit;
+          } else {
+            // console.log("Dentro do else: ", item._id, item.id, categoryEdit._id, categoryEdit.id)
+            return item;
+          }
+        })
+        // console.log("Depois do if: ", categoryEdit._id, categoryEdit.id)
+        setCategorys(getIdList);
+        alert("Categoria editada com sucesso!");
+      })
+      .catch((error) => {
+        console.error("error", error);
+      })
+      setShowModalEdit(false);
+    }
+
+    // -------------------------- Edit Category --------------------------
+
+    // -------------------------- Delete Category --------------------------
+
+    const [showModalConfirm, setShowModalConfirm] = useState(false);
+    const [categoryDelete, setCategoryDelete] = useState(null);
+
+    const handleCategoryDelete = (category) => {
+      if(category._id){
+        setCategoryDelete(category);
+        setShowModalConfirm(true);
+      } else {
+        console.error("O objeto category não possui o id");
+      }
+    }
+
+    const handleDelete = () => {
+      fetch(`http://localhost:5000/categoria/${categoryDelete._id}/user`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        const getIdList = categorys.filter(item => item._id !== categoryDelete._id);
+        setCategorys(getIdList);
+        alert("Categoria deletada com sucesso!");
+      })
+      .catch((error) => {
+        console.error("error", error);
+      })
+      setShowModalConfirm(false);
+    } 
+
 
     const [dataToRender, setDataToRender] = useState([]);
 
@@ -159,10 +245,13 @@ export default function CategoriesTable({ categories }) {
 
     const itemTable = dataToRender.map((item) => (
       <ItemTableCategory 
-        key={item.id}
+        key={item._id}
         name={item.nome}
+        data={item}
+        onEdit={handleCategoryEdit}
+        onDelete={handleCategoryDelete}
       />
-      ))
+      ));
 
   return (
     <>
@@ -176,8 +265,7 @@ export default function CategoriesTable({ categories }) {
         <Flex px='25px' justify='space-between' mb='20px' align='center'>
           <Box mr='10px'>
             <Button color="green.400" onClick={() => {
-                setDataToRender(categorys)
-                console.log("Passou aqui: ", categorys)
+                  setDataToRender(categorys)
             }}>
               Categoria de Receitas
             </Button>
@@ -202,6 +290,20 @@ export default function CategoriesTable({ categories }) {
               closeModal={onClose}
               value={category}
               handleInputChange={setCategory}
+            />
+            <FormModalEditCategory 
+              title="Editar categoria"
+              value={categoryEdit}
+              clickSave={handleEdit}
+              showModal={showModalEdit}
+              closeModal={() => setShowModalEdit(false)}
+              handleInputChange={setCategoryEdit}
+            />
+            <FormModalConfirm 
+              title={`Deseja realmente excluir a categoria ${categoryDelete?.nome}?`}
+              clickSave={handleDelete}
+              showModal={showModalConfirm}
+              closeModal={() => setShowModalConfirm(false)}
             />
           </Box>
         </Flex>
