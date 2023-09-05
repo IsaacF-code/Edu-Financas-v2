@@ -11,7 +11,7 @@ import FormModal from "components/modal/FormModal"
 import Brand from "components/sidebar/components/Brand";
 import Links from "components/sidebar/components/Links";
 // import SidebarCard from "components/sidebar/components/SidebarCard";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // FUNCTIONS
 
@@ -29,6 +29,68 @@ function SidebarContent(props) {
     onOpenD();
   }
 
+  const token = localStorage.getItem("token");
+
+  const [categories, setCategpries] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/categoria', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      setCategpries(data.categorias);
+    })
+    .catch((error) => {
+      console.error('error', error);
+    })
+  }, [token]);
+
+    const [revenue, setRevenue] = useState({ descricao: '', valor: '', categoria: 'Selecione a categoria' });
+    const [toClick, setToClick] = useState(false);
+
+    useEffect((toClick) => {
+      if (toClick) {
+        fetch('http://localhost:5000/receita', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(revenue),
+        })
+        .then((res) => res.json())
+        .then((data) => {
+          setRevenue({ descricao: '', valor: '', categoria: 'Selecione a categoria' });
+          setToClick(false);
+        })
+        .catch((error) => {
+          console.error('error', error);
+        })
+      }
+    }, [toClick, revenue, token]);
+    
+    const handleClick = (e) => {
+      e.preventDefault();
+      
+      let inputWithFilds = revenue.descricao?.length > 0 && revenue.valor?.length > 0 && revenue.categoria?.length > 0;
+      if (inputWithFilds) {
+        let newRevenue = {
+          descricao: revenue.descricao,
+          valor: revenue.valor,
+          categoria: revenue.categoria,
+        }
+        setRevenue(newRevenue);
+        setToClick(true);
+      } else {
+        alert('Preencha todos os campos!');
+      }
+    }
+
   // SIDEBAR
   return (
     <Flex direction='column' height='100%' pt='25px' borderRadius='30px'>
@@ -36,11 +98,15 @@ function SidebarContent(props) {
       <Stack direction='column' mb='auto' mt='8px'>
         <FormModal 
           title="Nova Receita"
+          options={categories}
+          handleInputChange={setRevenue}
+          clickSave={handleClick}
           showModal={isOpen}
           closeModal={onClose}
         />
         <FormModal 
           title="Nova Despesa"
+          options={categories}
           showModal={isOpenD}
           closeModal={onCloseD}
         />

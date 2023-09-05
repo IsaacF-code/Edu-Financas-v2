@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import CategoriesTable from "./components/CategoriesTableNew";
 import { columnsDataCategories } from "./variables/columnsData";
-import tableDataCategories from "views/admin/categories/variables/tableDataCategories.json";
+import tableDataCategories from "views/admin/categoriesNovo/variables/tableDataCategories.json";
 import React from "react";
 
 export default function Categories() {
