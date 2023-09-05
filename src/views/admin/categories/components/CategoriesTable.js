@@ -1,7 +1,6 @@
 import { AddIcon } from "@chakra-ui/icons";
 import { 
-  Box, 
-  Button, 
+  Box,  
   Flex, 
   IconButton, 
   Spacer, 
@@ -215,35 +214,7 @@ export default function CategoriesTable({ categories }) {
     } 
 
 
-    const [dataToRender, setDataToRender] = useState([]);
-
-    // const dataOne = [
-    //   {
-    //     id: 1,
-    //     nome: "Salário",
-    //     type: "Receita",
-    //   },
-    //   {
-    //     id: 2,
-    //     nome: "Prêmio",
-    //     type: "Receita",
-    //   },
-    // ];
-
-    const dataTwo = [
-      {
-        id: 1,
-        nome: "Essenciais",
-        type: "Despesa",
-      },
-      {
-        id: 2,
-        nome: "Lazer",
-        type: "Despesa",
-      },
-    ];
-
-    const itemTable = dataToRender.map((item) => (
+    const itemTable = categorys.map((item) => (
       <ItemTableCategory 
         key={item._id}
         name={item.nome}
@@ -263,18 +234,6 @@ export default function CategoriesTable({ categories }) {
         mb='10px'
       >
         <Flex px='25px' justify='space-between' mb='20px' align='center'>
-          <Box mr='10px'>
-            <Button color="green.400" onClick={() => {
-                  setDataToRender(categorys)
-            }}>
-              Categoria de Receitas
-            </Button>
-          </Box>
-          <Box>
-            <Button color="red.500" onClick={() => setDataToRender(dataTwo)}>
-              Categoria de Despesas
-            </Button>
-          </Box>
           <Spacer />
           <Box>
             <IconButton 
@@ -284,7 +243,6 @@ export default function CategoriesTable({ categories }) {
             />
             <FormModalCategory 
               title="Nova Categoria"
-              // options={dataType}
               clickSave={handleSave}
               showModal={isOpen}
               closeModal={onClose}
