@@ -13,7 +13,7 @@ import { TbCategory } from "react-icons/tb";
 import MainDashboard from "views/admin/default";
 import DataTables from "views/admin/dataTables";
 import Categories from "views/admin/categories";
-import CategoriesNew from "views/admin/categoriesNovo";
+// import CategoriesNew from "views/admin/categoriesNovo";
 
 // Auth Imports
 import SignInCentered from "views/auth/signIn";
@@ -41,13 +41,13 @@ const routes = [
     path: "/categories",
     component: Categories,
   },
-  {
-    name: "Categorias (Novo)",
-    layout: "/admin",
-    icon: <Icon as={TbCategory} width='20px' height='20px' color='inheit' />,
-    path: "/categoriesNew",
-    component: CategoriesNew,
-  },
+  // {
+  //   name: "Categorias (Novo)",
+  //   layout: "/admin",
+  //   icon: <Icon as={TbCategory} width='20px' height='20px' color='inheit' />,
+  //   path: "/categoriesNew",
+  //   component: CategoriesNew,
+  // },
   {
     name: "Sign In",
     layout: "/auth",

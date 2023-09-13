@@ -10,7 +10,7 @@ export default function ItemTable({ name, value, category, data, onEdit, onDelet
     <>
         <Tr>
             <Td>{name}</Td>
-            <Td>{value}</Td>
+            <Td>R$ {value}</Td>
             <Td>{category}</Td>
             <Td>
                 <IconButton 

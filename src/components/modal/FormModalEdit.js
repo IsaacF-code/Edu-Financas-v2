@@ -15,12 +15,12 @@ import {
     useColorModeValue
 } from "@chakra-ui/react"
 
-function FormModal({ title, showModal, closeModal, options, value, handleInputChange, clickSave }) {
+function FormModalEdit({ title, showModal, closeModal, options, defaultValue, handleInputChange, clickSave }) {
     const initialRef = React.useRef()
     const finalRef = React.useRef()
     const selectColor = useColorModeValue("", "white"); // cor padrão no modo claro e branca no modo escuro
 
-    const { descricao, valor, categoriaId } = value || { }; 
+    const { descricao, valor, categoriaId } = defaultValue || { }; 
 
     return (
         <>
@@ -42,8 +42,8 @@ function FormModal({ title, showModal, closeModal, options, value, handleInputCh
                   placeholder="Descrição" 
                   color={selectColor}
                   name="descricao"
-                  value={descricao}
-                  onChange={e => handleInputChange({ ...value, descricao: e.target.value })}
+                  defaultValue={descricao}
+                  onChange={e => handleInputChange((prev) => ({ ...prev, descricao: e.target.value }))}
                 />
               </FormControl>
               <FormControl mt={4}>
@@ -51,8 +51,8 @@ function FormModal({ title, showModal, closeModal, options, value, handleInputCh
                 <Input 
                   color={selectColor}
                   name="valor"
-                  value={valor}
-                  onChange={e => handleInputChange({ ...value, valor: e.target.value })}
+                  defaultValue={valor}
+                  onChange={e => handleInputChange((prev) => ({ ...prev, valor: e.target.value }))}
                 />
               </FormControl>
               <FormControl mt={4}> 
@@ -61,8 +61,8 @@ function FormModal({ title, showModal, closeModal, options, value, handleInputCh
                   // placeholder="Selecione a categoria" 
                   color={selectColor}
                   name="categoria"
-                  value={categoriaId}
-                  onChange={e => handleInputChange({ ...value, categoria: e.target.value })}
+                  defaultValue={categoriaId}
+                  onChange={e => handleInputChange((prev) => ({ ...prev, categoriaId: e.target.value }))}
                   >
                     <option>Selecione a categoria</option>
                     {options?.map(option => (
@@ -85,4 +85,4 @@ function FormModal({ title, showModal, closeModal, options, value, handleInputCh
     )
 }
 
-export default FormModal;
+export default FormModalEdit;

@@ -20,7 +20,7 @@ function SidebarContent(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen: isOpenD, onOpen: onOpenD, onClose: onCloseD } = useDisclosure(); // Destruração do objeto de controle do modal, para abrir 
                                                                                    // e fechar o modal
-
+       
   const handleOpenR = () => {
     onOpen();
   }
@@ -30,9 +30,9 @@ function SidebarContent(props) {
   }
 
   const token = localStorage.getItem("token");
-
+  
   const [categories, setCategpries] = useState([]);
-
+  
   useEffect(() => {
     fetch('http://localhost:5000/categoria', {
       method: 'GET',
@@ -49,56 +49,53 @@ function SidebarContent(props) {
       console.error('error', error);
     })
   }, [token]);
-
-    const [revenue, setRevenue] = useState({ descricao: '', valor: '', categoria: 'Selecione a categoria' });
-    const [toClick, setToClick] = useState(false);
-
-    useEffect((toClick) => {
-      if (toClick) {
+  
+  const [revenue, setRevenue] = useState({ descricao: "", valor: "", categoria: "" });
+  
+  const handleClick = (e) => {
+    e.preventDefault();
+    
+      let inputWithFilds = 
+      revenue.descricao.length > 0 && revenue.valor.length > 0 && revenue.categoria !== 'Selecione a categoria';
+      if (inputWithFilds) {
+        let newRevenue = {
+          descricao: revenue.descricao,
+          valor: revenue.valor,
+          categoriaId: revenue.categoria
+        }
+        console.log(revenue.categoria)
+        setRevenue(newRevenue);
         fetch('http://localhost:5000/receita', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(revenue),
+          body: JSON.stringify(newRevenue),
         })
         .then((res) => res.json())
         .then((data) => {
           setRevenue({ descricao: '', valor: '', categoria: 'Selecione a categoria' });
-          setToClick(false);
+          alert('Receita cadastrada com sucesso!');
         })
         .catch((error) => {
           console.error('error', error);
         })
-      }
-    }, [toClick, revenue, token]);
-    
-    const handleClick = (e) => {
-      e.preventDefault();
-      
-      let inputWithFilds = revenue.descricao?.length > 0 && revenue.valor?.length > 0 && revenue.categoria?.length > 0;
-      if (inputWithFilds) {
-        let newRevenue = {
-          descricao: revenue.descricao,
-          valor: revenue.valor,
-          categoria: revenue.categoria,
-        }
-        setRevenue(newRevenue);
-        setToClick(true);
+        onClose();
       } else {
         alert('Preencha todos os campos!');
       }
     }
-
-  // SIDEBAR
-  return (
-    <Flex direction='column' height='100%' pt='25px' borderRadius='30px'>
+    
+    // SIDEBAR
+    return (
+      <Flex direction='column' height='100%' pt='25px' borderRadius='30px'>
       <Brand />
       <Stack direction='column' mb='auto' mt='8px'>
         <FormModal 
           title="Nova Receita"
           options={categories}
+          value={revenue}
           handleInputChange={setRevenue}
           clickSave={handleClick}
           showModal={isOpen}
@@ -109,7 +106,7 @@ function SidebarContent(props) {
           options={categories}
           showModal={isOpenD}
           closeModal={onCloseD}
-        />
+        />   
         <DropDown 
           clickR={handleOpenR}
           clickD={handleOpenD}

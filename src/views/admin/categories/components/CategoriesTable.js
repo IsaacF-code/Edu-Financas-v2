@@ -150,17 +150,13 @@ export default function CategoriesTable() {
       })
       .then((res) => res.json())
       .then((data) => {
-        const getIdList = categorys.map(item => {
-          // console.log("Antes do if: ", item._id, categoryEdit._id)
+        const getIdList = categorys.map(item => {   
           if(item._id === categoryEdit._id){
-            // console.log("Dentro do if: ", item._id, item.id, categoryEdit._id, categoryEdit.id)
             return categoryEdit;
           } else {
-            // console.log("Dentro do else: ", item._id, item.id, categoryEdit._id, categoryEdit.id)
             return item;
           }
         })
-        // console.log("Depois do if: ", categoryEdit._id, categoryEdit.id)
         setCategorys(getIdList);
         alert("Categoria editada com sucesso!");
       })

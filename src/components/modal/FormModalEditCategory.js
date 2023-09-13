@@ -42,7 +42,7 @@ function FormModalCategoryCategory({ title, showModal, closeModal, clickSave, ha
                   color={selectColor} 
                   name="name" 
                   defaultValue={nome} 
-                  onChange={e => handleInputChange({ nome: e.target.value })} 
+                  onChange={e => handleInputChange((prev) => ({ ...prev, nome: e.target.value }))} 
                 />
               </FormControl>
             </ModalBody>
